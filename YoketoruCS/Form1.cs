@@ -19,7 +19,7 @@ namespace YoketoruCS
         /// <summary>
         /// Œ»İ‚Ìó‘Ô
         /// </summary>
-        State nextState = State.None;
+        State currentState = State.None;
 
         public Form1()
         {
