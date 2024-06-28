@@ -8,6 +8,18 @@ namespace YoketoruCS
         [DllImport("user32.dll")]
         public static extern short GetAsyncKeyState(int vKey);
 
+        static int PlayerMax => 1;
+        static int EnemyMax => 4;
+        static int ItemMax => 4;//”‚ª•Ï‚í‚é‚½‚ßÅŒã‚É‘‚­
+
+        static int PlayerIndex => 0;
+        static int EnemyIndex => PlayerIndex + PlayerMax;
+        static int ItemIndex => EnemyIndex + EnemyMax;
+        static int LabelMax => ItemIndex + ItemMax;
+
+        //ƒ‰ƒxƒ‹‚ð’è‹`
+        Label[] labels = new Label[LabelMax];
+
         enum State
         {
             None = -1,
@@ -30,6 +42,38 @@ namespace YoketoruCS
         public Form1()
         {
             InitializeComponent();
+
+            for (int i = 0; i < LabelMax; i++)
+            {
+                labels[i] = new Label();
+                labels[i].AutoSize = true;
+                Controls.Add(labels[i]);
+                    
+
+                //Text,Font,ForeColor‚ðŽí—Þ‚²‚Æ‚ÉÝ’è‚µ‚½‚¢!!
+                if (i == PlayerIndex)
+                {
+                    labels[i].Text = tempPlayer.Text;
+                    labels[i].Font = tempPlayer.Font;
+                    labels[i].ForeColor = tempPlayer.ForeColor;
+                }
+                else if (i > PlayerIndex && i < ItemIndex)
+                {
+                    labels[i].Text = tempEnemy.Text;
+                    labels[i].Font = tempEnemy.Font;
+                    labels[i].Left = labels[i-1].Width + labels[i - 1].Left;
+                    labels[i].ForeColor = tempEnemy.ForeColor;
+                  
+                }
+                else if (i >= ItemIndex && i < LabelMax)
+                {
+                    labels[i].Text = tempItem.Text;
+                    labels[i].Font = tempItem.Font;
+                    labels[i].Left = labels[i-1].Width + labels[i - 1].Left;
+                    labels[i].ForeColor = tempItem.ForeColor;
+                   
+                }
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -72,7 +116,7 @@ namespace YoketoruCS
 
                 case State.Clear:
                     labelClear.Visible = true;
-                    buttonToTitle.Visible= true;
+                    buttonToTitle.Visible = true;
                     break;
             }
         }
@@ -110,6 +154,6 @@ namespace YoketoruCS
             nextState = State.Title;
         }
 
-       
+
     }
 }
