@@ -1,7 +1,13 @@
+using Microsoft.VisualBasic.ApplicationServices;
+using System.Runtime.InteropServices;
+
 namespace YoketoruCS
 {
     public partial class Form1 : Form
     {
+        [DllImport("user32.dll")]
+        public static extern short GetAsyncKeyState(int vKey);
+
         enum State
         {
             None = -1,
@@ -46,6 +52,9 @@ namespace YoketoruCS
             switch (currentState)
             {
                 case State.Title:
+                    labelTitle.Visible = true;
+                    buttonStart.Visible = true;
+
                     labelGameover.Visible = false;
                     buttonToTitle.Visible = false;
                     break;
@@ -54,12 +63,17 @@ namespace YoketoruCS
                     labelTitle.Visible = false;
                     buttonStart.Visible = false;
                     break;
+
+                case State.Gameover:
+                    labelGameover.Visible = true;
+                    buttonToTitle.Visible = true;
+                    break;
             }
         }
 
         void UpdateState()
         {
-            switch(currentState)
+            switch (currentState)
             {
                 case State.Game:
                     UpdateGame();
@@ -69,12 +83,25 @@ namespace YoketoruCS
 
         void UpdateGame()
         {
+            if (GetAsyncKeyState((int)Keys.O) < 0)
+            {
+                nextState = State.Gameover;
+            }
 
+            if(GetAsyncKeyState((int)Keys.S) < 0)
+            {
+                nextState = State.Clear;
+            }
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
             nextState = State.Game;
+        }
+
+        private void buttonToTitle_Click(object sender, EventArgs e)
+        {
+            nextState = State.Title;
         }
     }
 }

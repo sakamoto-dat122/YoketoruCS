@@ -85,6 +85,7 @@
             buttonToTitle.TabIndex = 3;
             buttonToTitle.Text = "タイトルへ";
             buttonToTitle.UseVisualStyleBackColor = false;
+            buttonToTitle.Click += buttonToTitle_Click;
             // 
             // Form1
             // 
