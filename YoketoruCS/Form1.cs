@@ -56,6 +56,7 @@ namespace YoketoruCS
                     buttonStart.Visible = true;
 
                     labelGameover.Visible = false;
+                    labelClear.Visible = false;
                     buttonToTitle.Visible = false;
                     break;
 
@@ -67,6 +68,11 @@ namespace YoketoruCS
                 case State.Gameover:
                     labelGameover.Visible = true;
                     buttonToTitle.Visible = true;
+                    break;
+
+                case State.Clear:
+                    labelClear.Visible = true;
+                    buttonToTitle.Visible= true;
                     break;
             }
         }
@@ -88,7 +94,7 @@ namespace YoketoruCS
                 nextState = State.Gameover;
             }
 
-            if(GetAsyncKeyState((int)Keys.S) < 0)
+            if (GetAsyncKeyState((int)Keys.C) < 0)
             {
                 nextState = State.Clear;
             }
@@ -103,5 +109,7 @@ namespace YoketoruCS
         {
             nextState = State.Title;
         }
+
+       
     }
 }

@@ -34,6 +34,7 @@
             buttonStart = new Button();
             labelGameover = new Label();
             buttonToTitle = new Button();
+            labelClear = new Label();
             SuspendLayout();
             // 
             // timer1
@@ -87,11 +88,23 @@
             buttonToTitle.UseVisualStyleBackColor = false;
             buttonToTitle.Click += buttonToTitle_Click;
             // 
+            // labelClear
+            // 
+            labelClear.AutoSize = true;
+            labelClear.Font = new Font("メイリオ", 36F, FontStyle.Bold, GraphicsUnit.Point);
+            labelClear.ForeColor = Color.Gold;
+            labelClear.Location = new Point(375, 139);
+            labelClear.Name = "labelClear";
+            labelClear.Size = new Size(195, 72);
+            labelClear.TabIndex = 4;
+            labelClear.Text = "CLEAR";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(944, 501);
+            Controls.Add(labelClear);
             Controls.Add(buttonToTitle);
             Controls.Add(labelGameover);
             Controls.Add(buttonStart);
@@ -109,5 +122,6 @@
         private Button buttonStart;
         private Label labelGameover;
         private Button buttonToTitle;
+        private Label labelClear;
     }
 }
