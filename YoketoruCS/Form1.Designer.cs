@@ -165,12 +165,12 @@
             Controls.Add(tempEnemy);
             Controls.Add(tempPlayer);
             Controls.Add(labelTime);
-            Controls.Add(labelScore);
             Controls.Add(labelClear);
             Controls.Add(buttonToTitle);
             Controls.Add(labelGameover);
             Controls.Add(buttonStart);
             Controls.Add(labelTitle);
+            Controls.Add(labelScore);
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);
