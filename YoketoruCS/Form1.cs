@@ -28,6 +28,7 @@ namespace YoketoruCS
 
         int score = 0;
         int timer = 200;
+        int ItemUp;
 
         enum State
         {
@@ -124,6 +125,7 @@ namespace YoketoruCS
 
                     score = 0;
                     timer = 200;
+                    ItemUp = ItemMax;
 
                     for (int i = 0; i < LabelMax; i++)
                     {
@@ -141,11 +143,17 @@ namespace YoketoruCS
                 case State.Gameover:
                     labelGameover.Visible = true;
                     buttonToTitle.Visible = true;
+
+                    score = 0;
+                    timer = 200;
                     break;
 
                 case State.Clear:
                     labelClear.Visible = true;
                     buttonToTitle.Visible = true;
+
+                    score = 0;
+                    timer = 200;
                     break;
             }
         }
@@ -180,18 +188,52 @@ namespace YoketoruCS
 
             UpdateChrs();
 
+            //カウントダウン、0になったらGameover
             timer--;
             labelTime.Text = $"{timer}";
-            if(timer == 0)
+            if(timer <= 0)
             {
                 nextState = State.Gameover;
+            }
+
+            
+            //fposがラベルと重なっているか判定
+            for (int i = EnemyIndex; i < LabelMax; i++)
+            {
+                if (fpos.X > labels[i].Left
+                    && fpos.X < labels[i].Right
+                    && fpos.Y > labels[i].Top
+                    && fpos.Y < labels[i].Bottom)
+                {
+                    //敵のとき、ゲームオーバー
+                    if (i < ItemIndex)
+                    {
+                        nextState = State.Gameover;
+                    }
+                    else
+                    {
+                        //スコアの加算
+                        labelScore.Text = $"{score}";
+                        score += timer * 100;
+
+                        //アイテムをとったら消える
+                        labels[i].Visible = false;
+                        ItemUp--;
+                        //アイテムを全てとったら、クリア
+                        if(ItemUp <= 0)
+                        {
+                            nextState = State.Clear;
+                        }
+                    }
+
+                }
             }
         }
 
         void UpdateChrs()
         {
             //アイテムと敵をランダムで跳ね返り移動
-            for (int i = 1; i < LabelMax; i++)
+            for (int i = EnemyIndex; i < LabelMax; i++)
             {
                 labels[i].Left += vx[i];
                 labels[i].Top += vy[i];
