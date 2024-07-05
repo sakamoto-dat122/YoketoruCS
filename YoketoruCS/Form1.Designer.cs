@@ -116,7 +116,7 @@
             // 
             // labelTime
             // 
-            labelTime.AutoSize = true;
+            labelTime.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             labelTime.Font = new Font("メイリオ", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
             labelTime.Location = new Point(853, 448);
             labelTime.Name = "labelTime";

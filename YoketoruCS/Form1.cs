@@ -20,11 +20,14 @@ namespace YoketoruCS
         //ラベルを定義
         Label[] labels = new Label[LabelMax];
 
-        static Random Random = new Random();
+        static Random random = new Random();
 
         int[] vx = new int[LabelMax];
-        int[] vy = new int[LabelMax];  
-        static int SpeadMax =>10;
+        int[] vy = new int[LabelMax];
+        static int SpeadMax => 10;
+
+        int score = 0;
+        int timer = 200;
 
         enum State
         {
@@ -118,16 +121,20 @@ namespace YoketoruCS
                 case State.Game:
                     labelTitle.Visible = false;
                     buttonStart.Visible = false;
+
+                    score = 0;
+                    timer = 200;
+
                     for (int i = 0; i < LabelMax; i++)
                     {
                         labels[i].Visible = true;
 
-                        labels[i].Left = Random.Next(ClientSize.Width - labels[i].Width + 1);
-                        labels[i].Top = Random.Next(ClientSize.Height - labels[i].Height + 1);
+                        labels[i].Left = random.Next(ClientSize.Width - labels[i].Width);
+                        labels[i].Top = random.Next(ClientSize.Height - labels[i].Height);
 
                         //ランダムな速度の初期化
-                        vx[i] = Random.Next(-SpeadMax, SpeadMax + 1);
-                        vy[i] = Random.Next(SpeadMax, SpeadMax + 1);
+                        vx[i] = random.Next(-SpeadMax, SpeadMax + 1);
+                        vy[i] = random.Next(-SpeadMax, SpeadMax + 1);
                     }
                     break;
 
@@ -168,10 +175,17 @@ namespace YoketoruCS
             //プレイヤーの移動
             var fpos = PointToClient(MousePosition);
 
-            labels[PlayerIndex].Left = fpos.X - labels[PlayerIndex].Width/2;
-            labels[PlayerIndex].Top = fpos.Y - labels[PlayerIndex].Height/2;
+            labels[PlayerIndex].Left = fpos.X - labels[PlayerIndex].Width / 2;
+            labels[PlayerIndex].Top = fpos.Y - labels[PlayerIndex].Height / 2;
 
             UpdateChrs();
+
+            timer--;
+            labelTime.Text = $"{timer}";
+            if(timer == 0)
+            {
+                nextState = State.Gameover;
+            }
         }
 
         void UpdateChrs()
@@ -188,7 +202,7 @@ namespace YoketoruCS
                 }
                 else if (labels[i].Top < 0)
                 {
-                    vy[i]= Math.Abs(vy[i]);
+                    vy[i] = Math.Abs(vy[i]);
                 }
                 if (labels[i].Left > ClientSize.Width - labels[i].Width)
                 {
