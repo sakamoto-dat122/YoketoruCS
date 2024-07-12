@@ -117,6 +117,9 @@ namespace YoketoruCS
                     labelGameover.Visible = false;
                     labelClear.Visible = false;
                     buttonToTitle.Visible = false;
+
+                    score = 0;
+                    timer = 200;
                     break;
 
                 case State.Game:
@@ -124,7 +127,9 @@ namespace YoketoruCS
                     buttonStart.Visible = false;
 
                     score = 0;
+                    labelScore.Text = $"{score}";
                     timer = 200;
+                    labelTime.Text = $"{timer}";
                     ItemUp = ItemMax;
 
                     for (int i = 0; i < LabelMax; i++)
@@ -210,15 +215,17 @@ namespace YoketoruCS
                     {
                         nextState = State.Gameover;
                     }
-                    else
+                    else if (labels[i].Visible == true)
                     {
                         //スコアの加算
-                        labelScore.Text = $"{score}";
                         score += timer * 100;
+                        labelScore.Text = $"{score}";
 
                         //アイテムをとったら消える
+
                         labels[i].Visible = false;
                         ItemUp--;
+
                         //アイテムを全てとったら、クリア
                         if(ItemUp <= 0)
                         {
