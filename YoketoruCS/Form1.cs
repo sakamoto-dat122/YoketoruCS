@@ -29,6 +29,7 @@ namespace YoketoruCS
         int score = 0;
         int timer = 200;
         int ItemUp;
+        int highscore = 100;
 
         enum State
         {
@@ -118,6 +119,12 @@ namespace YoketoruCS
                     labelClear.Visible = false;
                     buttonToTitle.Visible = false;
 
+                    if (score > highscore)
+                    {
+                        highscore = score;
+                    }
+                    labelHighScore.Text = $"ハイスコア：{highscore}";
+
                     score = 0;
                     timer = 200;
                     break;
@@ -148,17 +155,11 @@ namespace YoketoruCS
                 case State.Gameover:
                     labelGameover.Visible = true;
                     buttonToTitle.Visible = true;
-
-                    score = 0;
-                    timer = 200;
                     break;
 
                 case State.Clear:
                     labelClear.Visible = true;
                     buttonToTitle.Visible = true;
-
-                    score = 0;
-                    timer = 200;
                     break;
             }
         }
@@ -196,12 +197,12 @@ namespace YoketoruCS
             //カウントダウン、0になったらGameover
             timer--;
             labelTime.Text = $"{timer}";
-            if(timer <= 0)
+            if (timer <= 0)
             {
                 nextState = State.Gameover;
             }
 
-            
+
             //fposがラベルと重なっているか判定
             for (int i = EnemyIndex; i < LabelMax; i++)
             {
@@ -222,12 +223,11 @@ namespace YoketoruCS
                         labelScore.Text = $"{score}";
 
                         //アイテムをとったら消える
-
                         labels[i].Visible = false;
                         ItemUp--;
 
                         //アイテムを全てとったら、クリア
-                        if(ItemUp <= 0)
+                        if (ItemUp <= 0)
                         {
                             nextState = State.Clear;
                         }

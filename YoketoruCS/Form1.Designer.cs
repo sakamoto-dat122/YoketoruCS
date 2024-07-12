@@ -40,6 +40,7 @@
             tempPlayer = new Label();
             tempEnemy = new Label();
             tempItem = new Label();
+            labelHighScore = new Label();
             SuspendLayout();
             // 
             // timer1
@@ -108,11 +109,11 @@
             // 
             labelScore.AutoSize = true;
             labelScore.Font = new Font("メイリオ", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
-            labelScore.Location = new Point(453, 9);
+            labelScore.Location = new Point(413, 9);
             labelScore.Name = "labelScore";
-            labelScore.Size = new Size(39, 44);
+            labelScore.Size = new Size(119, 44);
             labelScore.TabIndex = 5;
-            labelScore.Text = "0";
+            labelScore.Text = "00000";
             // 
             // labelTime
             // 
@@ -156,11 +157,22 @@
             tempItem.TabIndex = 9;
             tempItem.Text = "★";
             // 
+            // labelHighScore
+            // 
+            labelHighScore.AutoSize = true;
+            labelHighScore.Font = new Font("メイリオ", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
+            labelHighScore.Location = new Point(12, 9);
+            labelHighScore.Name = "labelHighScore";
+            labelHighScore.Size = new Size(213, 44);
+            labelHighScore.TabIndex = 10;
+            labelHighScore.Text = "ハイスコア：0";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(944, 501);
+            Controls.Add(labelHighScore);
             Controls.Add(tempItem);
             Controls.Add(tempEnemy);
             Controls.Add(tempPlayer);
@@ -190,5 +202,6 @@
         private Label tempPlayer;
         private Label tempEnemy;
         private Label tempItem;
+        private Label labelHighScore;
     }
 }
